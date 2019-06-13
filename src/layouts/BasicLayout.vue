@@ -10,9 +10,10 @@
         v-model="collapsed"
       >
         <div class="logo">
-          <span>Ant Design Pro</span>
+          <a-icon type="cluster" />
+          <span v-if="!collapsed">&nbsp;Ant Design Pro</span>
         </div>
-        <SiderMenu />
+        <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <!-- 主体 -->
       <a-layout>
@@ -63,6 +64,15 @@ export default {
     },
     navLayout() {
       return this.$route.query.navLayout || "left";
+    }
+  },
+  watch: {
+    collapsed: function(value) {
+      if (value === false) {
+        console.log("侧边栏打开状态");
+      } else {
+        console.log("侧边栏关闭状态");
+      }
     }
   }
 };
