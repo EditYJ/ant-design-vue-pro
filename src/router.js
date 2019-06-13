@@ -3,8 +3,11 @@ import Router from "vue-router";
 
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import findLast from "lodash/findLast";
+import { checkAuthority, isLogin } from "./utils/auth";
 
 import NotFound from "./views/404";
+import NoAuthority from "./views/403";
 
 Vue.use(Router);
 
@@ -47,6 +50,7 @@ const router = new Router({
     /// [Ⅰ级路由] /
     {
       path: "/",
+      meta: { authority: ["user", "admin"] },
       component: () =>
         import(/* webpackChunkName: "layout" */ "./layouts/BasicLayout"),
       children: [
@@ -72,7 +76,7 @@ const router = new Router({
         {
           path: "/form",
           name: "form",
-          meta: { icon: "form", title: "表单" },
+          meta: { icon: "form", title: "表单", authority: ["admin"] },
           component: { render: h => h("router-view") },
           children: [
             {
@@ -120,6 +124,13 @@ const router = new Router({
     },
     /// [Ⅰ级路由] *
     {
+      path: "/403",
+      name: "403",
+      hideInMenu: true,
+      component: NoAuthority
+    },
+    /// [Ⅰ级路由] *
+    {
       path: "*",
       name: "404",
       hideInMenu: true,
@@ -132,6 +143,22 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start();
+  }
+  // console.log(to.matched);
+  // 获取最近路由的权限
+  const record = findLast(to.matched, record => record.meta.authority);
+  // 如果获取到权限且不符合权限要求
+  if (record && !checkAuthority(record.meta.authority)) {
+    if (isLogin() && to.path != "/403") {
+      next({
+        path: "/403"
+      });
+    } else if (to.path != "/login") {
+      next({
+        path: "/login"
+      });
+    }
+    NProgress.done();
   }
   next();
 });
