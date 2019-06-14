@@ -36,7 +36,9 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <setting-drawer />
+    <!-- <Authoritied :authority="['admin']"> -->
+    <setting-drawer v-auth="['user']" />
+    <!-- </Authoritied> -->
   </div>
 </template>
 
