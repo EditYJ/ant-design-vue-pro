@@ -2,7 +2,7 @@
 
 /// 得到当前的用户权限
 export function getCurrentAutority() {
-  return ["user"];
+  return ["admin"];
 }
 
 /// 检查当前权限是否符合需要的权限
