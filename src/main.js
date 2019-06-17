@@ -2,7 +2,15 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
+import {
+  Button,
+  Layout,
+  Icon,
+  Drawer,
+  Radio,
+  Menu,
+  Notification
+} from "ant-design-vue";
 import Authoritied from "./components/Authoritied";
 import Auth from "./directives/auth";
 
@@ -14,6 +22,7 @@ Vue.use(Drawer);
 Vue.use(Radio);
 Vue.use(Menu);
 Vue.use(Auth);
+Vue.use(Notification);
 Vue.component("Authoritied", Authoritied);
 
 new Vue({

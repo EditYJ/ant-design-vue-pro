@@ -8,6 +8,7 @@ import { checkAuthority, isLogin } from "./utils/auth";
 
 import NotFound from "./views/404";
 import NoAuthority from "./views/403";
+import { notification } from "ant-design-vue";
 
 Vue.use(Router);
 
@@ -150,6 +151,10 @@ router.beforeEach((to, from, next) => {
   // 如果获取到权限且不符合权限要求
   if (record && !checkAuthority(record.meta.authority)) {
     if (isLogin() && to.path != "/403") {
+      notification.error({
+        message: "403",
+        description: "你没有权限访问，亲联系管理员！"
+      });
       next({
         path: "/403"
       });
