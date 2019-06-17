@@ -5,7 +5,12 @@ function request(options) {
   return axios(options)
     .then(res => {
       notification.success({
-        message: "成功",
+        //eslint-disable-next-line no-unused-vars
+        message: h => (
+          <div>
+            <span style="color: green">成功</span>
+          </div>
+        ),
         description: "success!!"
       });
       return res;
