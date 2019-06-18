@@ -9,7 +9,9 @@ import {
   Drawer,
   Radio,
   Menu,
-  Notification
+  // Notification,
+  Form,
+  Input
 } from "ant-design-vue";
 import Authoritied from "./components/Authoritied";
 import Auth from "./directives/auth";
@@ -22,7 +24,9 @@ Vue.use(Drawer);
 Vue.use(Radio);
 Vue.use(Menu);
 Vue.use(Auth);
-Vue.use(Notification);
+// Vue.use(Notification);
+Vue.use(Input);
+Vue.use(Form);
 Vue.component("Authoritied", Authoritied);
 
 new Vue({

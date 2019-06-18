@@ -1,9 +1,15 @@
 <template>
-  <div>分步表单-结果</div>
+  <div>提交结果：{{ result }}</div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      result: this.$store.state.step
+    };
+  }
+};
 </script>
 
 <style></style>
